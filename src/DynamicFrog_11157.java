@@ -9,7 +9,6 @@ public class DynamicFrog_11157
         PrintWriter out = new PrintWriter(System.out);
         Scanner sc=new Scanner(System.in);
         //BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Thread.sleep(3000);
         int t=sc.nextInt();
         int c=0;
         while(c++<t) {
