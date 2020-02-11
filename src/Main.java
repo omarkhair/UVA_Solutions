@@ -2,37 +2,41 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-
+	static int k ,n;
     public static void main(String[] args) throws Exception{
         Scanner sc=new Scanner(System.in);
-        Thread.sleep(3000);
-        while(sc.ready()){
-            int n=sc.nextInt(); int sum=sc.nextInt();
-            int arr[] =new int[n];
-            for (int i = 0; i < n; i++) {
-                arr[i]=sc.nextInt();
-            }
-            System.out.println(smallestSubarray(sum, arr));
+        PrintWriter out= new PrintWriter(System.out);
+        n=sc.nextInt(); 
+        k=sc.nextInt();
+        int lo=1; int hi=n;
+        int ans=-1;
+        while(lo<=hi) {
+        	int mid=(lo+hi)/2;
+        	if(isValid(mid)) {
+        		ans=mid;
+        		hi=mid-1;
+        	}
+        	else
+        		lo=mid+1;
         }
-    }
-    public static int smallestSubarray(int targetSum, int[] arr) {
-        int minWindowSize = Integer.MAX_VALUE;
-        int currentWindowSum = 0;
-        int windowStart = 0;
-        for (int windowEnd = 0; windowEnd < arr.length; windowEnd++) {
-            currentWindowSum += arr[windowEnd];
-
-            while(currentWindowSum >= targetSum) {
-                minWindowSize = Math.min(minWindowSize, windowEnd - windowStart + 1);
-                currentWindowSum -= arr[windowStart];
-                windowStart++;
-            }
-        }
-
-        return minWindowSize==Integer.MAX_VALUE?0:minWindowSize;
+        System.out.println(ans);
+       out.flush();
     }
 
-
+    public static boolean isValid(int v) {
+    	int lines=v;
+    	
+    	for(int i=1;; i++) {
+    		int add=v/(int)Math.pow(k, i);
+    		if(lines>=n)
+    			return true;
+    		if(add>0)
+    			lines+=add;
+    		else
+    			break;
+    	}
+    	return lines>=n;
+    }
     static class Scanner {
         StringTokenizer st;
         BufferedReader br;
