@@ -1,46 +1,47 @@
 import java.util.*;
 import java.io.*;
 public class Vertex_280 {
-	static LinkedList<Integer>[] graph;
-	static boolean[] visited;
+	static int[] parent;
+	static boolean[] tried;
 	public static void main(String[] args) throws IOException {
 		Scanner sc = new Scanner(System.in);
 		PrintWriter out= new PrintWriter(System.out);
-		int n;
-		while((n=sc.nextInt())!=0) {
-			graph=new LinkedList[n];
-//			Arrays.fill(graph, new LinkedList<Integer>());
-			for(int i=0;i<n;i++)
-				graph[i]=new LinkedList<Integer>();
-			int from;
-			while((from=sc.nextInt())!=0) {
-				int to;
-				while((to=sc.nextInt())!=0)
-					graph[from-1].add(to-1);
+		int t=sc.nextInt();
+		int test=0;
+		while(test++<t) {
+			int n=sc.nextInt();
+			parent=new int[n+1];
+			for(int i=0;i<n; i++)
+				parent[sc.nextInt()]=sc.nextInt();
+			tried=new boolean[n+1];
+			int ans=Integer.MAX_VALUE;
+			int max=0;
+			for(int i=1;i<=n;i++) {
+				if(tried[i])
+					continue;
+				int count=cycleCount(i);
+				if(count>=max) {
+					if(count>max)
+						ans=i;
+					ans=Math.min(ans, i);
+					max=count;
+				}
 			}
-			int queries= sc.nextInt();
-			while(queries-->0) {
-				int source=sc.nextInt();
-				visited= new boolean[n];
-				dfs(source-1);
-				int count=0;
-				StringBuilder sb= new StringBuilder();
-				for(int i=0; i<n; i++) 
-					if(!visited[i]) {
-						count++;
-						sb.append(" "+(i+1));
-					}
-				out.println(count+sb.toString());
-			}
+			out.printf("Case %d: %d%n",test,ans);
 		}
 		out.close();
 	}
-	public static void dfs(int node) {
-		for(int x: graph[node]) 
-			if(!visited[x]) {
-				visited[x]=true;
-				dfs(x);
-			}
+	public static int cycleCount(int start) {
+		HashSet<Integer> hs= new HashSet<Integer>();
+		tried[start]=true;
+		int i=start;
+		
+		while(!tried[parent[i]]) {		
+			hs.add(parent[i]);
+			i=parent[i];
+			tried[i]=true;
+		}
+		return hs.size();
 	}
 	static class Scanner {
         StringTokenizer st;

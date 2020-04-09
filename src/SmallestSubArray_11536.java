@@ -6,7 +6,7 @@ public class SmallestSubArray_11536 {
 
 
         public static void main(String[] args) throws Exception{
-        Main.Scanner sc=new Main.Scanner(System.in);
+        Scanner sc=new Scanner(System.in);
         PrintWriter out= new PrintWriter(System.out);
         int t=sc.nextInt();
         int c=0;

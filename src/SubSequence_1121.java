@@ -7,7 +7,7 @@ import java.util.StringTokenizer;
 public class SubSequence_1121 {
 
     public static void main(String[] args) throws Exception{
-        Main.Scanner sc=new Main.Scanner(System.in);
+        Scanner sc=new Scanner(System.in);
         Thread.sleep(3000);
         while(sc.ready()){
             int n=sc.nextInt(); int sum=sc.nextInt();
